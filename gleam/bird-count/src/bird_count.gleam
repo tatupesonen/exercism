@@ -15,14 +15,24 @@ pub fn increment_day_count(days: List(Int)) -> List(Int) {
 }
 
 pub fn has_day_without_birds(days: List(Int)) -> Bool {
-  list.any(days, fn(x) { x == 0 })
+  case days {
+    [] -> False
+    [0, ..] -> True
+    [_, ..rest] -> has_day_without_birds(rest)
+  }
 }
 
 pub fn total(days: List(Int)) -> Int {
-  list.fold(days, 0, fn(acc, cur) { acc + cur })
+  case days {
+    [] -> 0
+    [x, ..rest] -> x + total(rest)
+  }
 }
 
 pub fn busy_days(days: List(Int)) -> Int {
-  list.filter(days, fn(count) { count >= 5 })
-  |> list.length()
+  case days {
+    [] -> 0
+    [x, ..rest] if x >= 5 -> 1 + busy_days(rest)
+    [_, ..rest] -> busy_days(rest)
+  }
 }
