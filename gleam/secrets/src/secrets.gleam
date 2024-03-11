@@ -15,5 +15,9 @@ pub fn secret_divide(secret: Int) -> fn(Int) -> Int {
 }
 
 pub fn secret_combine(x: fn(Int) -> Int, y: fn(Int) -> Int) -> fn(Int) -> Int {
-  fn(a) { y(x(a)) }
+  fn(a) {
+    a
+    |> x
+    |> y
+  }
 }
